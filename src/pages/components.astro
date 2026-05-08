@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Components" description="UI component library – buttons, cards, badges, modals, tabs">
+<BaseLayout title="Components" description="UI component library">
 <section class="page-hero">
   <div class="container">
     <span class="tag tag-red" style="display:inline-block;margin-bottom:1rem">Components</span>
@@ -12,30 +12,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <div class="container comp-page">
 
-  <!-- BUTTONS -->
   <section class="comp-section">
     <h2 class="comp-heading">Buttons</h2>
     <div class="comp-demo">
       <button class="btn btn-primary">Primary</button>
       <button class="btn btn-outline">Outline</button>
-      <button class="btn" style="background:var(--color-accent);color:#fff">Accent</button>
-      <button class="btn" style="background:var(--color-accent2);color:#0f0f13">Teal</button>
       <button class="btn btn-outline" disabled style="opacity:.4;cursor:not-allowed">Disabled</button>
     </div>
   </section>
 
-  <!-- TAGS -->
   <section class="comp-section">
     <h2 class="comp-heading">Tags &amp; Badges</h2>
     <div class="comp-demo">
       <span class="tag tag-purple">Purple</span>
       <span class="tag tag-teal">Teal</span>
       <span class="tag tag-red">Red</span>
-      <span class="tag" style="background:rgba(255,255,255,.06);color:var(--color-text-muted);border:1px solid var(--color-border)">Neutral</span>
     </div>
   </section>
 
-  <!-- CARDS -->
   <section class="comp-section">
     <h2 class="comp-heading">Cards</h2>
     <div class="comp-demo" style="align-items:stretch">
@@ -45,31 +39,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
       <div class="demo-card" style="border-color:var(--color-primary)">
         <h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:.5rem;color:var(--color-primary-light)">Highlighted Card</h3>
-        <p style="color:var(--color-text-muted);font-size:.9rem">Accent border to indicate selected or featured state.</p>
-      </div>
-      <div class="demo-card" style="background:var(--color-surface-2)">
-        <h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:.5rem">Elevated Card</h3>
-        <p style="color:var(--color-text-muted);font-size:.9rem">Slightly darker background for secondary surfaces.</p>
+        <p style="color:var(--color-text-muted);font-size:.9rem">Accent border to indicate selected state.</p>
       </div>
     </div>
   </section>
 
-  <!-- TABS -->
   <section class="comp-section">
     <h2 class="comp-heading">Tabs</h2>
-    <div class="tabs" id="demoTabs">
+    <div class="tabs">
       <div class="tab-list" role="tablist">
         <button class="tab-btn active" role="tab" data-tab="tab1">Tab One</button>
         <button class="tab-btn" role="tab" data-tab="tab2">Tab Two</button>
         <button class="tab-btn" role="tab" data-tab="tab3">Tab Three</button>
       </div>
-      <div class="tab-panel active" id="tab1"><p style="color:var(--color-text-muted)">Content for Tab One. Tabs are purely CSS + vanilla JS — no framework needed.</p></div>
-      <div class="tab-panel" id="tab2"><p style="color:var(--color-text-muted)">Content for Tab Two. The active tab gets an underline indicator.</p></div>
-      <div class="tab-panel" id="tab3"><p style="color:var(--color-text-muted)">Content for Tab Three. Keyboard accessible with role="tab".</p></div>
+      <div class="tab-panel active" id="tab1"><p style="color:var(--color-text-muted)">Content for Tab One.</p></div>
+      <div class="tab-panel" id="tab2"><p style="color:var(--color-text-muted)">Content for Tab Two.</p></div>
+      <div class="tab-panel" id="tab3"><p style="color:var(--color-text-muted)">Content for Tab Three.</p></div>
     </div>
   </section>
 
-  <!-- MODAL -->
   <section class="comp-section">
     <h2 class="comp-heading">Modal</h2>
     <div class="comp-demo">
@@ -78,7 +66,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-box">
         <h3 id="modalTitle" style="font-family:var(--font-display);font-weight:700;margin-bottom:.75rem">Modal Dialog</h3>
-        <p style="color:var(--color-text-muted);margin-bottom:1.5rem">This modal uses native HTML dialog patterns with an overlay. Press Escape or click outside to close.</p>
+        <p style="color:var(--color-text-muted);margin-bottom:1.5rem">Press Escape or click outside to close.</p>
         <div style="display:flex;gap:.75rem;justify-content:flex-end">
           <button class="btn btn-outline" id="closeModal">Cancel</button>
           <button class="btn btn-primary">Confirm</button>
@@ -87,34 +75,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <!-- CODE BLOCK -->
   <section class="comp-section">
     <h2 class="comp-heading">Code Block</h2>
-    <pre class="code-block"><code>import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-
-export default defineConfig({
-  site: 'https://your-site.pages.dev',
-  integrations: [mdx(), sitemap()],
-  output: 'static',
-});</code></pre>
+    <pre class="code-block"><code>import &#123; defineConfig &#125; from &#39;astro/config&#39;;
+export default defineConfig(&#123;
+  output: &#39;static&#39;,
+&#125;);</code></pre>
   </section>
 
-  <!-- TYPOGRAPHY -->
   <section class="comp-section">
     <h2 class="comp-heading">Typography</h2>
     <div style="display:flex;flex-direction:column;gap:1rem">
-      <div style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:800">Display Heading (Syne)</div>
-      <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:700">Section Heading (Syne Bold)</div>
-      <div style="font-size:1rem;color:var(--color-text)">Body text – Inter Regular 16px. Comfortable for long-form reading with line-height 1.7.</div>
-      <div style="font-size:.85rem;color:var(--color-text-muted)">Secondary / muted text for metadata and captions.</div>
-      <div style="font-family:var(--font-mono);font-size:.9rem;color:var(--color-primary-light)">Monospace – JetBrains Mono for code</div>
+      <div style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:800">Display Heading</div>
+      <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:700">Section Heading</div>
+      <div style="font-size:1rem;color:var(--color-text)">Body text - Inter Regular 16px.</div>
+      <div style="font-size:.85rem;color:var(--color-text-muted)">Secondary muted text.</div>
+      <div style="font-family:var(--font-mono);font-size:.9rem;color:var(--color-primary-light)">Monospace - JetBrains Mono</div>
     </div>
   </section>
 
 </div>
 </BaseLayout>
+
 <style>
 .page-hero { padding: clamp(3rem,6vw,5rem) 0 2rem; }
 .page-hero h1 { font-size: clamp(2rem,4vw,3.2rem); font-weight:800; margin-bottom:.75rem; }
@@ -133,21 +115,19 @@ export default defineConfig({
 .comp-demo { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; }
 .demo-card { padding:1.25rem; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); flex:1; min-width:200px; transition:all var(--transition); }
 .demo-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-card); }
-.tabs { border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow:hidden; }
+.tabs { border:1px solid var(--color-border); border-radius:var(--radius-lg); overflow:hidden; }
 .tab-list { display:flex; border-bottom:1px solid var(--color-border); background:var(--color-surface); }
 .tab-btn { flex:1; padding:.75rem 1rem; background:none; border:none; color:var(--color-text-muted); font-size:.9rem; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; transition:all var(--transition); }
 .tab-btn:hover { color:var(--color-text); }
 .tab-btn.active { color:var(--color-primary-light); border-bottom-color:var(--color-primary); }
 .tab-panel { display:none; padding:1.5rem; background:var(--color-surface); }
 .tab-panel.active { display:block; }
-.modal-overlay {
-  display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
-  align-items:center; justify-content:center; padding:1rem;
-}
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200; align-items:center; justify-content:center; padding:1rem; }
 .modal-overlay.open { display:flex; }
 .modal-box { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:2rem; max-width:440px; width:100%; box-shadow:var(--shadow-card); }
 .code-block { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:1.25rem; overflow-x:auto; font-family:var(--font-mono); font-size:.88rem; line-height:1.7; color:var(--color-accent2); }
 </style>
+
 <script>
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabPanels = document.querySelectorAll('.tab-panel');
