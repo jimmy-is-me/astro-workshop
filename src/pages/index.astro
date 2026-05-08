@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Home" description="Astro Workshop demo – feature-rich static site with Blog, Portfolio, Components and more">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-badge"><span class="tag tag-purple">Astro + Cloudflare Pages</span></div>
+    <h1 class="hero-title">
+      Build <span class="gradient-text">Blazing Fast</span><br/>Websites with Astro
+    </h1>
+    <p class="hero-desc">
+      A feature-rich demo site built entirely with Astro 4. Explore Blog, Portfolio, Components, Contact form, SEO and more.
+    </p>
+    <div class="hero-actions">
+      <a href="/portfolio" class="btn btn-primary">View Portfolio &rarr;</a>
+      <a href="/blog" class="btn btn-outline">Read the Blog</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">100</span><span class="stat-label">Lighthouse Score</span></div>
+      <div class="stat"><span class="stat-num">0ms</span><span class="stat-label">JS by Default</span></div>
+      <div class="stat"><span class="stat-num">&infin;</span><span class="stat-label">Customisable</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">What's Inside</h2>
+    <p class="section-sub">Every page showcases a different Astro feature</p>
+    <div class="features-grid">
+      {[
+        { icon:'📝', title:'Blog', desc:'MDX posts with tags, reading time, code highlighting and RSS feed.', href:'/blog', tag:'tag-teal' },
+        { icon:'🖼️', title:'Portfolio', desc:'Filterable project cards with tech stack tags and case study links.', href:'/portfolio', tag:'tag-purple' },
+        { icon:'🎨', title:'Components', desc:'Live UI component library – buttons, cards, badges, modals, tabs.', href:'/components', tag:'tag-red' },
+        { icon:'✉️', title:'Contact', desc:'Static-compatible contact form ready for Cloudflare or Netlify Forms.', href:'/contact', tag:'tag-teal' },
+        { icon:'📡', title:'RSS Feed', desc:'Auto-generated RSS and sitemap via @astrojs/rss and @astrojs/sitemap.', href:'/rss.xml', tag:'tag-purple' },
+        { icon:'⚡', title:'Performance', desc:'Optimised images, lazy-loading, minimal JS, zero layout shift.', href:'/about', tag:'tag-red' },
+      ].map(f => (
+        <a href={f.href} class="feature-card">
+          <span class="feature-icon">{f.icon}</span>
+          <div>
+            <h3 class="feature-title">{f.title}</h3>
+            <p class="feature-desc">{f.desc}</p>
+          </div>
+          <span class={`tag ${f.tag} feature-tag`}>{f.title}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="tech">
+  <div class="container">
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="tech-list">
+      {['Astro 4','MDX','@astrojs/sitemap','@astrojs/rss','Cloudflare Pages','GitHub Actions','Sharp (Images)','CSS Variables','Content Collections','TypeScript'].map(t => (
+        <span class="tech-chip">{t}</span>
+      ))}
+    </div>
+  </div>
+</section>
+
+</BaseLayout>
+
+<style>
+.hero { padding: clamp(4rem,10vw,8rem) 0 clamp(3rem,6vw,6rem); text-align: center; }
+.hero-badge { margin-bottom: 1.5rem; }
+.hero-title { font-size: clamp(2.5rem,7vw,5.5rem); font-weight: 800; margin-bottom: 1.25rem; }
+.hero-desc { font-size: clamp(1rem,2vw,1.2rem); color: var(--color-text-muted); max-width: 52ch; margin: 0 auto 2rem; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+.hero-stats { display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { display: block; font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--color-primary-light); }
+.stat-label { font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.features { padding: clamp(3rem,6vw,5rem) 0; }
+.section-title { font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 700; margin-bottom: 0.5rem; }
+.section-sub { color: var(--color-text-muted); margin-bottom: 2.5rem; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(min(320px,100%),1fr)); gap: 1.25rem; }
+.feature-card {
+  display: flex; flex-direction: column; gap: 0.75rem;
+  padding: 1.5rem; border-radius: var(--radius-lg);
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  transition: all var(--transition); text-decoration: none; color: inherit;
+}
+.feature-card:hover { border-color: var(--color-primary); transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.feature-icon { font-size: 1.8rem; }
+.feature-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.feature-desc { color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6; }
+.feature-tag { margin-top: auto; align-self: flex-start; }
+.tech { padding: clamp(2rem,4vw,4rem) 0; }
+.tech-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+.tech-chip {
+  padding: 0.45rem 1rem; border-radius: var(--radius-full);
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  font-size: 0.85rem; font-weight: 500; font-family: var(--font-mono);
+  color: var(--color-text-muted); transition: all var(--transition);
+}
+.tech-chip:hover { border-color: var(--color-primary); color: var(--color-primary-light); }
+</style>

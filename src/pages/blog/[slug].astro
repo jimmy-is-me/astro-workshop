@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<BaseLayout title={post.data.title} description={post.data.description}>
+<article class="container article">
+  <header class="article-header">
+    <div class="article-meta">
+      <time>{post.data.pubDate.toLocaleDateString('en', {year:'numeric',month:'long',day:'numeric'})}</time>
+      {post.data.readingTime && <span>&middot; {post.data.readingTime} min read</span>}
+    </div>
+    <h1 class="article-title">{post.data.title}</h1>
+    <p class="article-desc">{post.data.description}</p>
+    <div class="article-tags">
+      {post.data.tags.map(t => <span class="tag tag-purple">{t}</span>)}
+    </div>
+  </header>
+  <div class="prose">
+    <Content />
+  </div>
+  <footer class="article-footer">
+    <a href="/blog" class="btn btn-outline">&larr; Back to Blog</a>
+  </footer>
+</article>
+</BaseLayout>
+<style>
+.article{padding:clamp(2rem,5vw,4rem) 0 5rem;max-width:760px}
+.article-header{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--color-border)}
+.article-meta{font-size:.85rem;color:var(--color-text-muted);margin-bottom:1rem}
+.article-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:.75rem}
+.article-desc{color:var(--color-text-muted);font-size:1.05rem;margin-bottom:1rem;max-width:60ch}
+.article-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.prose{line-height:1.8;color:var(--color-text)}
+.prose h2{font-family:var(--font-display);font-size:1.5rem;font-weight:700;margin:2rem 0 .75rem}
+.prose h3{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin:1.5rem 0 .5rem}
+.prose p{margin-bottom:1rem;max-width:72ch}
+.prose ul,.prose ol{padding-left:1.5rem;margin-bottom:1rem}
+.prose li{margin-bottom:.4rem}
+.prose a{color:var(--color-primary-light);text-decoration:underline}
+.prose code{font-family:var(--font-mono);background:var(--color-surface-2);padding:.15rem .4rem;border-radius:var(--radius-sm);font-size:.88em}
+.prose pre{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1.25rem;overflow-x:auto;margin-bottom:1.25rem}
+.prose pre code{background:none;padding:0;font-size:.9rem}
+.article-footer{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--color-border)}
+</style>

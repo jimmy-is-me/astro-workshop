@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const tags = [...new Set(posts.flatMap(p => p.data.tags))];
+  return tags.map(tag => ({
+    params: { tag },
+    props: { posts: posts.filter(p => p.data.tags.includes(tag)) }
+  }));
+}
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+<BaseLayout title={`Tag: ${tag}`} description={`Blog posts tagged with ${tag}`}>
+<div class="container" style="padding-top:3rem;padding-bottom:5rem">
+  <a href="/blog" style="color:var(--color-text-muted);font-size:.9rem">&larr; All posts</a>
+  <h1 style="font-size:2rem;font-weight:800;margin:1rem 0 2rem">Tag: <span class="gradient-text">{tag}</span></h1>
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    {posts.map(p => (
+      <a href={`/blog/${p.slug}`} style="padding:1.25rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);display:block;transition:all var(--transition);color:inherit">
+        <div style="font-size:.82rem;color:var(--color-text-muted);margin-bottom:.4rem">{p.data.pubDate.toLocaleDateString('en',{year:'numeric',month:'short',day:'numeric'})}</div>
+        <div style="font-family:var(--font-display);font-weight:700;font-size:1.1rem">{p.data.title}</div>
+        <div style="color:var(--color-text-muted);font-size:.9rem;margin-top:.3rem">{p.data.description}</div>
+      </a>
+    ))}
+  </div>
+</div>
+</BaseLayout>

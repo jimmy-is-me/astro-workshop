@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="About" description="About this Astro Workshop demo site">
+<section class="page-hero">
+  <div class="container">
+    <span class="tag tag-teal" style="margin-bottom:1rem;display:inline-block">About</span>
+    <h1>About This Site</h1>
+    <p class="lead">A full-featured Astro demo covering the most common website patterns — built for speed and deployed on Cloudflare Pages.</p>
+  </div>
+</section>
+<section class="about-content">
+  <div class="container about-grid">
+    <div class="about-text">
+      <h2>What is this?</h2>
+      <p>This is a demonstration Astro project built to show how you can deploy a fast, SEO-friendly, feature-rich website using Astro and Cloudflare Pages for free.</p>
+      <h2>Features included</h2>
+      <ul class="feature-list">
+        <li>✅ MDX Blog with tags &amp; reading time</li>
+        <li>✅ Portfolio with filterable project cards</li>
+        <li>✅ UI Component library page</li>
+        <li>✅ Contact form (Cloudflare/Netlify compatible)</li>
+        <li>✅ Auto sitemap.xml via @astrojs/sitemap</li>
+        <li>✅ Auto RSS feed via @astrojs/rss</li>
+        <li>✅ Full SEO meta tags + Open Graph</li>
+        <li>✅ Responsive design &amp; accessible navigation</li>
+        <li>✅ Dark theme with CSS custom properties</li>
+        <li>✅ Content Collections with Zod validation</li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h3>Stack</h3>
+      <dl class="stack-list">
+        <dt>Framework</dt><dd>Astro 4</dd>
+        <dt>Styling</dt><dd>CSS Variables</dd>
+        <dt>Content</dt><dd>MDX + Collections</dd>
+        <dt>Deploy</dt><dd>Cloudflare Pages</dd>
+        <dt>Repo</dt><dd>GitHub</dd>
+        <dt>Fonts</dt><dd>Syne + Inter</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+</BaseLayout>
+<style>
+.page-hero { padding: clamp(3rem,6vw,5rem) 0 2rem; }
+.page-hero h1 { font-size: clamp(2rem,4vw,3.2rem); font-weight:800; margin-bottom:.75rem; }
+.lead { color:var(--color-text-muted); font-size:1.1rem; max-width:55ch; }
+.about-content { padding:2rem 0 5rem; }
+.about-grid { display:grid; grid-template-columns:1fr min(340px,100%); gap:3rem; align-items:start; }
+.about-text h2 { font-size:1.3rem; font-weight:700; margin:1.5rem 0 .5rem; }
+.about-text p { color:var(--color-text-muted); margin-bottom:1rem; max-width:60ch; }
+.feature-list { list-style:none; display:flex; flex-direction:column; gap:.5rem; color:var(--color-text-muted); font-size:.95rem; }
+.about-card { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:1.5rem; position:sticky; top:80px; }
+.about-card h3 { font-family:var(--font-display); font-weight:700; margin-bottom:1rem; }
+.stack-list { display:grid; grid-template-columns:max-content 1fr; gap:.4rem 1.5rem; }
+dt { color:var(--color-text-muted); font-size:.85rem; }
+dd { font-weight:500; font-family:var(--font-mono); font-size:.88rem; color:var(--color-primary-light); }
+@media(max-width:700px){.about-grid{grid-template-columns:1fr;}}
+</style>

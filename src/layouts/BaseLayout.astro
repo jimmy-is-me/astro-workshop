@@ -1,0 +1,120 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Astro Workshop – a feature-rich Astro demo site' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href={canonicalURL} />
+  <title>{title} | Astro Workshop</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/global.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-label="Astro Workshop logo">
+        <polygon points="14,2 26,24 2,24" fill="none" stroke="#7c6af7" stroke-width="2"/>
+        <polygon points="14,9 20,21 8,21" fill="#7c6af7" opacity="0.5"/>
+        <circle cx="14" cy="14" r="3" fill="#a094ff"/>
+      </svg>
+      <span>Workshop</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/about" class="nav-link">About</a></li>
+      <li><a href="/blog" class="nav-link">Blog</a></li>
+      <li><a href="/portfolio" class="nav-link">Portfolio</a></li>
+      <li><a href="/components" class="nav-link">Components</a></li>
+      <li><a href="/contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main-content">
+  <slot />
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-brand">Astro Workshop</p>
+    <p class="footer-copy">Built with <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> · Deploy on Cloudflare Pages</p>
+    <p class="footer-year">&copy; {new Date().getFullYear()} jimmy-is-me</p>
+  </div>
+</footer>
+
+<style>
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,15,19,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+  color: var(--color-text); transition: opacity var(--transition);
+}
+.nav-logo:hover { opacity: 0.75; }
+.nav-links { display: flex; list-style: none; gap: 0.25rem; align-items: center; }
+.nav-link {
+  padding: 0.4rem 0.85rem; border-radius: var(--radius-full);
+  font-size: 0.9rem; font-weight: 500; color: var(--color-text-muted);
+  transition: all var(--transition);
+}
+.nav-link:hover, .nav-link[aria-current="page"] { color: var(--color-text); background: rgba(255,255,255,0.06); }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all var(--transition); }
+.footer { border-top: 1px solid var(--color-border); padding: 2.5rem 0; margin-top: 4rem; }
+.footer-inner { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; align-items: center; justify-content: space-between; }
+.footer-brand { font-family: var(--font-display); font-weight: 700; }
+.footer-copy { color: var(--color-text-muted); font-size: 0.88rem; }
+.footer-copy a { color: var(--color-primary-light); }
+.footer-year { color: var(--color-text-muted); font-size: 0.85rem; }
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none; position: absolute; top: 64px; left: 0; right: 0;
+    flex-direction: column; padding: 1rem;
+    background: var(--color-surface); border-bottom: 1px solid var(--color-border); gap: 0.25rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-link { padding: 0.65rem 1rem; border-radius: var(--radius-md); width: 100%; }
+}
+</style>
+
+<script>
+const toggle = document.getElementById('navToggle');
+const links  = document.getElementById('navLinks');
+toggle?.addEventListener('click', () => {
+  const isOpen = links?.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', String(isOpen));
+});
+document.querySelectorAll('.nav-link').forEach(link => {
+  const href = link.getAttribute('href') ?? '';
+  if (href === window.location.pathname || (href !== '/' && window.location.pathname.startsWith(href))) {
+    link.setAttribute('aria-current', 'page');
+  }
+});
+</script>
+</body>
+</html>

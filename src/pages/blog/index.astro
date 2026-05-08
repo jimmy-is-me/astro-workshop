@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const allPosts = (await getCollection('blog')).filter(p => !p.data.draft);
+allPosts.sort((a,b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))];
+---
+<BaseLayout title="Blog" description="Articles about Astro, web development and deployment">
+<section class="page-hero">
+  <div class="container">
+    <span class="tag tag-teal" style="display:inline-block;margin-bottom:1rem">Blog</span>
+    <h1>Articles</h1>
+    <p class="lead">{allPosts.length} posts about Astro, deployment and web dev.</p>
+  </div>
+</section>
+<section class="blog-section">
+  <div class="container blog-layout">
+    <main>
+      <div class="posts-list">
+        {allPosts.map(post => (
+          <a href={`/blog/${post.slug}`} class="post-card">
+            <div class="post-meta">
+              <time>{post.data.pubDate.toLocaleDateString('en', {year:'numeric',month:'short',day:'numeric'})}</time>
+              {post.data.readingTime && <span>&middot; {post.data.readingTime} min read</span>}
+            </div>
+            <h2 class="post-title">{post.data.title}</h2>
+            <p class="post-desc">{post.data.description}</p>
+            <div class="post-tags">
+              {post.data.tags.map(t => <span class="tag tag-purple">{t}</span>)}
+            </div>
+          </a>
+        ))}
+      </div>
+    </main>
+    <aside class="blog-sidebar">
+      <h3>Tags</h3>
+      <div class="tag-cloud">
+        {allTags.map(t => <a href={`/blog/tag/${t}`} class="tag tag-teal">{t}</a>)}
+      </div>
+      <h3 style="margin-top:2rem">Subscribe</h3>
+      <a href="/rss.xml" class="btn btn-outline" style="margin-top:.75rem;font-size:.85rem">📡 RSS Feed</a>
+    </aside>
+  </div>
+</section>
+</BaseLayout>
+<style>
+.page-hero{padding:clamp(3rem,6vw,5rem) 0 2rem}
+.page-hero h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:.75rem}
+.lead{color:var(--color-text-muted);font-size:1.1rem}
+.blog-section{padding:2rem 0 5rem}
+.blog-layout{display:grid;grid-template-columns:1fr 260px;gap:3rem;align-items:start}
+.posts-list{display:flex;flex-direction:column;gap:1.25rem}
+.post-card{display:block;padding:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);transition:all var(--transition);color:inherit}
+.post-card:hover{border-color:var(--color-primary);transform:translateX(4px)}
+.post-meta{font-size:.82rem;color:var(--color-text-muted);margin-bottom:.5rem}
+.post-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:.4rem}
+.post-desc{color:var(--color-text-muted);font-size:.9rem;margin-bottom:.75rem}
+.post-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.blog-sidebar h3{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.75rem}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:.5rem}
+@media(max-width:768px){.blog-layout{grid-template-columns:1fr}}
+</style>
