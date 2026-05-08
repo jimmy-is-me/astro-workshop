@@ -121,7 +121,15 @@ export default defineConfig({
 .lead { color:var(--color-text-muted); font-size:1.1rem; }
 .comp-page { padding-bottom: 5rem; }
 .comp-section { padding: 2.5rem 0; border-bottom: 1px solid var(--color-border); }
-.comp-heading { font-family:var(--font-display); font-size:1.2rem; font-weight:700; margin-bottom:1.25rem; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:.06em; font-size:.85rem; }
+.comp-heading {
+  font-family: var(--font-display);
+  font-size: .85rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
 .comp-demo { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; }
 .demo-card { padding:1.25rem; background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); flex:1; min-width:200px; transition:all var(--transition); }
 .demo-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-card); }
@@ -141,7 +149,6 @@ export default defineConfig({
 .code-block { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:1.25rem; overflow-x:auto; font-family:var(--font-mono); font-size:.88rem; line-height:1.7; color:var(--color-accent2); }
 </style>
 <script>
-// Tabs
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabPanels = document.querySelectorAll('.tab-panel');
 tabBtns.forEach(btn => {
@@ -152,7 +159,6 @@ tabBtns.forEach(btn => {
     document.getElementById(btn.dataset.tab)?.classList.add('active');
   });
 });
-// Modal
 const modal = document.getElementById('modal');
 document.getElementById('openModal')?.addEventListener('click', () => modal?.classList.add('open'));
 document.getElementById('closeModal')?.addEventListener('click', () => modal?.classList.remove('open'));
